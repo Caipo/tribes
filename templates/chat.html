@@ -13,6 +13,7 @@
     <input id="mssg" type="text" size="100" placeholder="Your message goes here…"><br><br>
     <input id="submit" type="button" value="Send">
   </div>
+  {{room_name | json_script:'roomname'}}
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
     const chatSocket = new WebSocket(
