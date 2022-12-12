@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +16,11 @@
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
     const chatSocket = new WebSocket(
-      'ws://' + window.location.host + '/ws/chat/' + roomName
+      'ws://' + window.location.host + '/ws/' + roomName + '/'
     );
     chatSocket.onmessage = function(e) {
       const data = JSON.parse(e.data);
-      document.querySelector('#log').value += data.message;
+      document.querySelector('#log').value += data.message + '\n';
     }
     chatSocket.onclose = function(e) {
       console.error('0oops! Chats closed.');
