@@ -3,6 +3,15 @@ from django.template import loader
 from django.http import HttpResponse
 
 def index(request):
+    user = ''
+    if request.user.is_authenticated:
+            user = request.user
+
     template = loader.get_template('index.html')
-    context = dict()
+    context = {'user' : user} 
     return HttpResponse(template.render(context, request))
+
+
+
+
+
