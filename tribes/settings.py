@@ -123,8 +123,8 @@ USE_I18N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = "/chat"
-LOGOUT_REDIRECT_URL = "/accounts/login"
+LOGIN_REDIRECT_URL = '' 
+LOGOUT_REDIRECT_URL = '' 
 
 # Static files (CSS, JavaScript, Images)
 

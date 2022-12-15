@@ -6,16 +6,16 @@ from django.template import loader
 
 def profile(request):
     user = request.path_info.split(r'/')[-1]
+    template = loader.get_template(r'profile.html')
+    print(user)
 
     try:
         mydata = User.objects.get(username=user)
-        context = {'data': mydata}
-        template = loader.get_template(r'users/profile.html')
-
+        print(mydata)
+        context = {'exists' : True, 'user': mydata}
         return HttpResponse(template.render(context, request))
 
     except User.DoesNotExist:
-        template = loader.get_template(r'users/not_found.html')
-        context = dict() 
+        context = {'exists' : False} 
         return HttpResponse(template.render(context, request))
 

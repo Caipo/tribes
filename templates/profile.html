@@ -9,7 +9,11 @@
     </style>
 </head>
 <body>
-    <h1>Welcome, {{data.username}}!</h1>
+    {% if exists %}
+    <h1>Welcome, {{user.username}}!</h1>
+    {% else %}
+    Sorry User not foun
+    {% endif %}
 </body>
 </html>
 

@@ -9,7 +9,7 @@
 <body>
   <div class="container2">
     <h5>Chats Log</h5>
-    <ol id="log"></ol>
+    <div id="log"></div>
     <input id="mssg" type="text" size="100" placeholder="Your message goes here…"><br><br>
   </div>
   {{room_name | json_script:'roomname'}}
@@ -45,7 +45,7 @@
     let sendButton = document.getElementById('submit');
     chatLog.style.position = "relative";
     messageBox.style.position = "relative";
-    sendButton.style.position = 'fixed';
+    sendButton.style.position = 'relative';
     sendButton.style.bottom = '0px';
   });
   </script>
