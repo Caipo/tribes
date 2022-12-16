@@ -1,0 +1,19 @@
+<!-- templates/registration/login.html -->
+<html>
+  <h2>Sign up</h2>
+  <form method="post">
+    {% csrf_token %}
+    <h3>Username: 
+    {{ form.username }}<br>
+    </h3><br>
+    <h3>Password:
+    {{ form.password1 }}<br>
+    (8 character minimum)
+  </h3><br>
+  <h3>Confirm Password:
+    {{ form.password2 }}<br>
+  </h3><br>
+    
+    <button type="submit">Sign Up</button>
+  </form>
+</html>

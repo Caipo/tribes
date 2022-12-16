@@ -1,24 +1,13 @@
-"""tribes URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from Django.URLs import path, include
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include, re_path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('chat/', include('chat.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('u/', include('users.urls')),
+    path('t/', include('groups.urls')),
+    re_path(r't/[a-z0-9_-]{3,15}/chat/', include('chat.urls')),
+    path('chat/', include('chat.urls')),
+    path('', include('home.urls'))
 ]

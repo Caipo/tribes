@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Page Makeover</title>
+    <style>
+    h1 {
+        font-family: 'Arial', sans-serif;
+        color: #333;
+    }
+    </style>
+</head>
+<body>
+    {% if exists %}
+    <h1>Welcome, {{user}}!</h1>
+    {% else %}
+    Sorry User not foun
+    {% endif %}
+</body>
+</html>
+
