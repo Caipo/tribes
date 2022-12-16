@@ -39,8 +39,6 @@
     {% if request.user.is_authenticated %}
     Welcome {{user.username}} 
     <button type="button" onclick="window.location.href='/t/blap';">Tribe Home</button>
-
-    <button type="button" onclick="window.location.href='/accounts/logout';">Logout</button>
     {% else %}
     <button type="button" onclick="window.location.href='/accounts/login';">Login</button>
     <button type="button" onclick="window.location.href='/accounts/signup';">Sign Up</button>

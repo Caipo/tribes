@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Other Chats Room</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div class="container2">
+    <h5>Chats Log</h5>
+    <ol id="log"></ol>
+    <h5>Enter your chats here</h5>
+    <input id="mssg" type="text" size="100" placeholder="Your message goes here…"><br><br>
+    <input id="submit" type="button" value="Send">
+  </div>
+  {{room_name | json_script:'roomname'}}
+  <script>
+    const roomName = JSON.parse(document.getElementById('roomname').textContent);
+    const chatSocket = new WebSocket(
+      'ws://' + window.location.host + '/ws/' + roomName + '/'
+    );
+    chatSocket.onmessage = function(e) {
+      const data = JSON.parse(e.data);
+      let log = document.getElementById('log');
+      let newItem = document.createElement('li');
+      newItem.innerHTML = data.message;
+      log.appendChild(newItem);
+    }
+    chatSocket.onclose = function(e) {
+      console.error('0oops! Chats closed.');
+    }
+    document.querySelector('#submit').onclick = function(e) {
+      const messageDom = document.querySelector('#mssg');
+      const message = messageDom.value;
+      chatSocket.send(JSON.stringify({ 'message': message }));
+    }
+ document.getElementById('mssg').addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      document.getElementById("submit").click();
+    }
+  });
+  </script>
+</body>
+</html>

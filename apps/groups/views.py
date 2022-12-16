@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from users.models import CustomUser
+from users.models import User
 from django.http import HttpResponse
 from django.template import loader
 
