@@ -1,5 +1,6 @@
-<html>
-<head>
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
     <title>Page Makeover</title>
     <style>
     h1 {
@@ -7,14 +8,16 @@
         color: #333;
     }
     </style>
-</head>
-<body>
+{% endblock %}
+{% block body %}
     {% if exists %}
-    <h1>Welcome, {{user}}!</h1>
-    <p> you belong in the {{user.tribe}} tribe!</p>
+    <h1>{{user}}</h1>
+          <div class="profile-avatar" >
+            <img class='profile-avatar' src="{% static user.profile_picture %}" alt="Avatar" >
+          </div>
+    <p> {{user}} is a member of the  {{user.tribe}} tribe!</p>
     {% else %}
-    Sorry User not foun
+    Sorry User not found
     {% endif %}
-</body>
-</html>
+{% endblock %}
 
