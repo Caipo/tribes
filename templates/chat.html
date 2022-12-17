@@ -27,10 +27,10 @@
         newItem.classList.add('message');
         newItem.innerHTML = `
           <div class="avatar">
-            <img class='avatar' src="{% static 'imgs/IMG_1646.png' %}" alt="Avatar">
+            <img class='avatar' src="{% static 'profile_pics/'%}${ data.picture}" alt="Avatar">
           </div>
           <div class="content">
-            <div class="author">Username</div>
+            <div class="author">${data.author}</div>
             <div class="text">${data.message}</div>
           </div>
         `;
@@ -44,7 +44,7 @@ document.getElementById('mssg').addEventListener("keyup", function(event) {
     event.preventDefault();
     const messageDom = document.querySelector('#mssg');
     const message = messageDom.value;
-    chatSocket.send(JSON.stringify({ 'message': message }));
+    chatSocket.send(JSON.stringify({ 'message': message}));  // Add the 'user' field to the message data
     messageDom.value = '';
   }
 });

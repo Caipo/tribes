@@ -32,15 +32,22 @@ class Consumer(WebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'chat_message',
-                'message': message
+                'message': message,
+                'author': self.scope['user'].username,
+                'picture' : self.scope['user'].profile_picture
             }
         )
+
 
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
+        author = event['author']
+        picture = event['picture']
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message
+            'message': message,
+            'author' : author,
+            'picture' : picture.split(r'/')[-1] 
         }))
