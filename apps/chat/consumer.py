@@ -1,4 +1,5 @@
 import json
+import datetime
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 
@@ -34,7 +35,8 @@ class Consumer(WebsocketConsumer):
                 'type': 'chat_message',
                 'message': message,
                 'author': self.scope['user'].username,
-                'picture' : self.scope['user'].profile_picture
+                'picture' : self.scope['user'].profile_picture,
+                'time' :  str(datetime.datetime.now())
             }
         )
 
