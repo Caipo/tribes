@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'base.html' %}
+
+{% block head %}
     <title>Home Page</title>
     <style>
         body {
@@ -31,17 +31,30 @@
             border-radius: 5px; 
         }
     </style>
-</head>
-<body>
-    <h1>Welcome to the Home Page!</h1>
-    <p>Tribes Social is a place to connect with friends and family, share stories, and make memories.</p>
+{% endblock %}
 
+{% block body %}
+    <h1>Welcome to the Home Page!</h1>
     {% if request.user.is_authenticated %}
-    Welcome {{user.username}} 
-    <button type="button" onclick="window.location.href='/t/blap';">Tribe Home</button>
+     <p> Welcome <b>{{user.username}}</b> to the tribe home page. Clicke the button to visit your tribe.</p>
+    <button type="button" onclick="window.location.href='/t/{{user.tribe}}';">Tribe Home</button>
     {% else %}
+    <p>Tribes Social is a place to connect with friends and family, share stories, and make memories.</p>
     <button type="button" onclick="window.location.href='/accounts/login';">Login</button>
     <button type="button" onclick="window.location.href='/accounts/signup';">Sign Up</button>
     {% endif %}
-</body>
-</html>
+{% endblock %}
+
+{% block sidebar  %}
+<ul>
+  <li>Bono</li>
+  <li>Sinead O'Connor</li>
+  <li>Liam Neeson</li>
+  <li>Colin Farrell</li>
+  <li>Van Morrison</li>
+  <li>Michael Fassbender</li>
+  <li>Cillian Murphy</li>
+  <li>Pierce Brosnan</li>
+  <li>Daniel Day-Lewis</li>
+</ul>
+{% endblock  %}

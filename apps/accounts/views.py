@@ -1,17 +1,15 @@
 from django.shortcuts import render
-from users.models import User
+from .models import TribeUser 
 from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth.forms import UserCreationForm
+from .forms import TribeUserCreationForm
 
 def get_user_profile(request, username):
-    user = User.objects.get(username=username)
+    user = TribeUser.objects.get(username=username)
     return render(request, 'registration/profile.html', {"user":user})
 
 
-
 class SignUpView(generic.CreateView):
-    #form_class = CustomUserCreationForm
-    form_class = UserCreationForm
+    form_class = TribeUserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
