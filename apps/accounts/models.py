@@ -31,5 +31,4 @@ def get_proflie_picture():
     files = os.listdir(directory)
     random_file = random.choice(files)
     random_image_path = os.path.join(directory, random_file)
-    print(random_image_path)
     return random_image_path.replace('static','')
