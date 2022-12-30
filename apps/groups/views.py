@@ -11,7 +11,7 @@ def home(request):
     template = loader.get_template(r'tribe_page/home.html')
 
     if request.user.is_authenticated and (
-            (not request.user.is_anonymous and request.user.tribe == request.path_info.split(r'/')[-3])
+            (not request.user.is_anonymous and request.user.tribe == request.path_info.split(r'/')[-1])
                  or request.user.is_superuser):
 
 

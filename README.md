@@ -5,11 +5,15 @@ Its a social media In the early stages, not really for the public but Ill keep i
 
 
 ## Things I have that you might need
+```
 Django==4.1.4
 channels==4.0.0
 daphne==4.0.0
 channels-redis==4.0.0
+python-dotenv
+psycopg2
 docker
+```
 
 ## Start up
 

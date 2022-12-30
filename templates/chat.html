@@ -7,10 +7,23 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+
   <div class="container2">
     <h5>Chats Log</h5>
-    <div id="log"></div>
-    <textarea id="mssg" type="text" size="100" placeholder="Your message goes here…">
+    <div id="log">
+    {% for i in past_messages %}
+           <div class='message'>
+          <div class="avatar">
+                  <img class='avatar' src="{% static 'profile_pics/'%}{{i.profile_pic}}" alt="Avatar">
+          </div>
+          <div class="content">
+                  <div class="author">{{ i.sender }}</div>
+                  <div class="text">{{i.message }}</div>
+          </div>
+          </div>
+    {% endfor %}
+    </div>
+    <textarea id="mssg" type="text" size="100" placeholder="Your message goes here">
     </textarea>
   </div>
   {{room_name | json_script:'roomname'}}
