@@ -1,14 +1,21 @@
 import json
 import datetime
+import bleach
+import re
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .models import Message
+from .models import ConnectedUsers 
 
 class Consumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.user = self.scope['user']
         self.room_group_name = 'chat_%s' % self.room_name
+        
+        self.new_user = ConnectedUsers(user=self.user,tribe = self.user.tribe)
+        self.new_user.save()
+        
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -19,17 +26,20 @@ class Consumer(WebsocketConsumer):
         self.accept()
 
     def disconnect(self, close_code):
+        self.new_user.delete()
         # Leave room group
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
         )
+        
+        
+        
 
     # Receive message from WebSocket
     def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        print(self.scope['user'].profile_picture)
         chat_message = Message(sender=self.scope['user'], 
                                    profile_pic = self.scope['user'].profile_picture.split('/')[-1],
                                    tribe = self.scope['user'].tribe,
@@ -56,7 +66,21 @@ class Consumer(WebsocketConsumer):
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
-            'message': message,
+            'message': filter_message(message),
             'author' : author,
             'picture' : picture.split(r'/')[-1] 
         }))
+
+def filter_message(message):
+    allowed_tags = ['a', 'b','br', 'em', 'i', 'strong']
+    allowed_attributes = {}
+    
+    img_re = '^https?://.+\.(png|jpg|jpeg|gif|bmp)$'
+    if re.match(img_re, message):
+        return f'<img src="{message}"  width="400">'
+
+    return bleach.clean(message, tags=allowed_tags, attributes=allowed_attributes)
+
+
+
+

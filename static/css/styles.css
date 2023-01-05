@@ -1,16 +1,21 @@
 #log {
     overflow-y: scroll;
+    overflow-x: hidden;
     height: 500px;
     text-align: left;
     width: 75%;
+    box-sizing: border-box;
 }
-  body {
+
+body {
     height: 100%;
     font-family: sans-serif;
     background-color: #f5f5f5;
     color: #444444;
-  }
-  .container2 {
+    box-sizing: border-box;
+}
+
+.container2 {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -19,18 +24,24 @@
     height: 100vh;
     margin: 0 auto;
     background-color: #ffffff;
+    overflow-x: hidden;
     padding: 20px;
     border-radius: 5px;
+    box-sizing: border-box;
 }
-  h5 {
+
+h5 {
     color: #333333;
-  }
+    font-size: 16px;
+}
+
 textarea#mssg {
   resize: none;
   overflow-y: scroll;
   display: block;
   width: 75%;
-  max-width 75%;
+  max-width: 75%;
+  white-space: pre-wrap;
   height: 50px;
   max-height: 100px;
   padding: 16px;
@@ -40,26 +51,29 @@ textarea#mssg {
   border-radius: 10px;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  }
+  box-sizing: border-box;
+}
+
 input#submit {
-    margin-top: 0%;
+    margin-top: 16px;
     width: 20%;
     text-align: center;
-    position : fixed;
+    position: fixed;
     background-color: #333333;
     color: #ffffff;
     padding: 10px;
     border: none;
     border-radius: 5px;
     font-weight: bold;
+    box-sizing: border-box;
 }
 
 .message {
   display: flex;
   align-items: flex-start;
   padding: 16px;
+  box-sizing: border-box;
 }
-
 
 .profile-avatar {
   width: 150px;
@@ -68,11 +82,13 @@ input#submit {
   min-height: 47px;
   border-radius: 50%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .profile-avatar img {
   object-fit: contain;
 }
+
 .avatar {
   width: 55px;
   height: 55px;
@@ -80,6 +96,7 @@ input#submit {
   min-height: 47px;
   border-radius: 50%;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .avatar img {
@@ -88,36 +105,7 @@ input#submit {
 
 .content {
   margin-left: 16px;
+  box-sizing: border-box;
 }
 
-.author {
-}
-
-.text {
-  margin-top: 8px;
-  font-size: 14px;
-  color: #555;
-  word-wrap: break-word;
-button {
-  /* Style the button */
-  display: inline-block;
-  border: none;
-  border-radius: 4px;
-  padding: 12px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #222222;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
-  /* Style the hover effect */
-  &:hover {
-    background-color: #444444;
-  }
-
-  /* Style the focus effect */
-  &:focus {
-    outline: none;
-  }
-}
+.

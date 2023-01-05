@@ -9,7 +9,7 @@
 <body>
 
   <div class="container2">
-    <h5>Chats Log</h5>
+     <h5>Chats Log</h5>
     <div id="log">
     {% for i in past_messages %}
            <div class='message'>
@@ -27,6 +27,14 @@
     </textarea>
   </div>
   {{room_name | json_script:'roomname'}}
+
+  {% for user in user_list %}
+      <!-- NOTE: We escape HTML to prevent XSS attacks. -->
+      <li data-username="{{ user.username|escape }}">
+        {{ user.username}}
+      </li>
+    {% endfor %}
+
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
     console.log(roomName)

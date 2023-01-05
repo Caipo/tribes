@@ -27,7 +27,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'daphne',
     'chat.apps.ChatConfig',
