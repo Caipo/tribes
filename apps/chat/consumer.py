@@ -7,33 +7,53 @@ from channels.generic.websocket import WebsocketConsumer
 from .models import Message
 from .models import ConnectedUsers 
 
+clients = list()
+
 class Consumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.user = self.scope['user']
         self.room_group_name = 'chat_%s' % self.room_name
-        
-        self.new_user = ConnectedUsers(user=self.user,tribe = self.user.tribe)
-        self.new_user.save()
-        
+        clients.append(self)
+        #self.new_user = ConnectedUsers(user=self.user, tribe = self.user.tribe)
+        #self.new_user.save()
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
-            self.channel_name
+            self.channel_name,
         )
+
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type': 'user_list',
+                'message' : 'asdf'
+            }
+        )
+
+
+
 
         self.accept()
 
     def disconnect(self, close_code):
-        self.new_user.delete()
+        clients.remove(self)
+
         # Leave room group
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,
             self.channel_name
         )
-        
-        
+        async_to_sync(self.channel_layer.group_send)(
+            self.room_group_name,
+            {
+                'type': 'user_list',
+                'message' : 'asdf'
+            }
+        )
+
+
         
 
     # Receive message from WebSocket
@@ -57,6 +77,12 @@ class Consumer(WebsocketConsumer):
             }
         )
 
+    
+    def user_list(self, event):
+        self.send(text_data=json.dumps({
+            'type' : 'user_list',
+            'clients' : get_clients(),
+        }))
 
     # Receive message from room group
     def chat_message(self, event):
@@ -66,6 +92,7 @@ class Consumer(WebsocketConsumer):
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
+            'type' : 'chat_message',
             'message': filter_message(message),
             'author' : author,
             'picture' : picture.split(r'/')[-1] 
@@ -81,6 +108,5 @@ def filter_message(message):
 
     return bleach.clean(message, tags=allowed_tags, attributes=allowed_attributes)
 
-
-
-
+def get_clients():
+    return [i.user.username for i in clients]
