@@ -27,24 +27,40 @@
     </textarea>
   </div>
   {{room_name | json_script:'roomname'}}
-
-  {% for user in user_list %}
-      <!-- NOTE: We escape HTML to prevent XSS attacks. -->
-      <li data-username="{{ user.username|escape }}">
-        {{ user.username}}
-      </li>
-    {% endfor %}
+  
+  <div class="right-container">
+  <h3>Online Users </h3>
+  <ul id="user-list"></ul>
+  </div>      
 
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
-    console.log(roomName)
-    const chatSocket = new WebSocket(
-      'ws://' + window.location.host + '/ws/' + roomName + '/'
-    );
-    chatSocket.onmessage = function(e) {
+    const socketList = document.getElementById('user-list');
+
+    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/' + roomName + '/');
+
+
+    chatSocket.onmessage = function(e){
       const data = JSON.parse(e.data);
+      console.log(data)
+      if(data.type === 'user_list'){
+      let user_list = document.getElementById('user-list');
+      var divs = user_list.querySelectorAll('div');
+        divs.forEach(function(div) {
+          div.parentNode.removeChild(div);
+        });
+      
+      data.clients.forEach(function(element){
+         let newItem2 = document.createElement('div');
+         newItem2.classList.add('mssg');
+              newItem2.innerHTML = "<a href='" + window.location.origin + '/u/' +  element + "'>"  + element + "</a>";
+        user_list.append(newItem2);
+      });
+      }
+        
+      else{
       let log = document.getElementById('log');
-        let newItem = document.createElement('div');
+      let newItem = document.createElement('div');
         newItem.classList.add('message');
         newItem.innerHTML = `
           <div class="avatar">
@@ -56,10 +72,20 @@
           </div>
         `;
       log.appendChild(newItem);
+        }
     }
-    chatSocket.onclose = function(e) {
+
+    chatSocket.onopen = function(e){
+        console.log('new connection opened');
+    }
+
+    chatSocket.onclose = function(e){
       console.error('0oops! Chats closed.');
     }
+
+
+
+
 document.getElementById('mssg').addEventListener("keyup", function(event) {
   if (event.code === "Enter" && document.querySelector('#mssg').value != '') {
     event.preventDefault();
@@ -70,13 +96,18 @@ document.getElementById('mssg').addEventListener("keyup", function(event) {
   }
 });
 
-  // make sure the chat log, send box and button position is always in frame
-  window.addEventListener("resize", function() {
-    let chatLog = document.getElementById('log');
-    let messageBox = document.getElementById('mssg');
-    chatLog.style.position = "relative";
-    messageBox.style.position = "relative";
-  });
+  
+
+
+
+// make sure the chat log, send box and button position is always in frame
+window.addEventListener("resize", function() {
+   let chatLog = document.getElementById('log');
+   let messageBox = document.getElementById('mssg');
+   chatLog.style.position = "relative";
+messageBox.style.position = "relative";
+});
+
   </script>
 </body>
 </html>
