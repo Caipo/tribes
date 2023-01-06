@@ -15,6 +15,8 @@ class Consumer(WebsocketConsumer):
         self.user = self.scope['user']
         self.room_group_name = 'chat_%s' % self.room_name
         clients.append(self)
+        #clients = sorted(clients, key=lambda x: x.user.username)
+        
         #self.new_user = ConnectedUsers(user=self.user, tribe = self.user.tribe)
         #self.new_user.save()
 
