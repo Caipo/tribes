@@ -29,14 +29,13 @@
   {{room_name | json_script:'roomname'}}
   
   <div class="right-container">
-  <h3>Online Users </h3>
+  <h3 style="text-align:center;" >Online Users</h3>
   <ul id="user-list"></ul>
   </div>      
 
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
     const socketList = document.getElementById('user-list');
-
     const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/' + roomName + '/');
 
 
@@ -52,8 +51,8 @@
       
       data.clients.forEach(function(element){
          let newItem2 = document.createElement('div');
-         newItem2.classList.add('mssg');
-              newItem2.innerHTML = "<a href='" + window.location.origin + '/u/' +  element + "'>"  + element + "</a>";
+         newItem2.classList.add('user-item');
+              newItem2.innerHTML = "<a class='user-link' href='" + window.location.origin + '/u/' +  element + "'>"  + element + "</a>";
         user_list.append(newItem2);
       });
       }

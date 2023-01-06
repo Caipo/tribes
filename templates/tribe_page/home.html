@@ -1,12 +1,35 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block head %}
-  <title>Group Home Page</title>
+<title>{{ user.tribe}}</title>
 {% endblock %}
 
 {% block body %}
-  <h1>Welcome to Our Group!</h1>
-  <p>We are a group of people who share common interests and would like to discuss them in a safe and friendly environment. Please take a minute to check out the chat, rules, and about us sections below.</p>
+
+<style>
+        body {
+            background-color: #f9f9f9;
+            font-family: sans-serif;
+            text-align: center;
+        } 
+
+        h1 {
+            font-size: 2.5rem;
+            color: #000;
+            margin: 1.5rem 0;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #444;
+            margin: 0.5rem 0; 
+        }
+</style>
+
+<h1>Welcome to the {{user.tribe}} tribe!</h1>
+
+   We are a collection of people joined by pure randomess, developing a commuinity.
 
   <h2>Chat</h2>
   <p>Ready to join the conversation? Click the button below  to enter the chatroom.</p>
@@ -16,12 +39,29 @@
   </button>
   <h2>Rules</h2>
   <ul>
-      <li>Respect the opinions of others.</li>
-      <li>No hate speech of any kind.</li>
-      <li>No flaming or trolling.</li>
-      <li>No spamming.</li>
+      <li>The rules are up to every one in the tribe</li>
+
   </ul>
 
-  <h2>About Us</h2>
-  <p>We are a group of people who share common interests and would like to discuss them in a safe and friendly environment. We welcome anyone who would like to join in on the conversation.</p>
+  <div class="right-container">
+  <h3 style="text-align:center;" >{{user.tribe}} Members</h3>
+  <ul id="user-list">
+  {% for i in user_list %}
+
+        <div class="content">
+                <div class="author"><b>{{i.username}}</b></div>
+          </div>
+
+        <div class="avatar">
+        <img class='avatar' src="{% static ''%}{{i.profile_picture}}" alt="Avatar">
+        </div>
+
+  {% endfor %}
+  </ul>
+  </div>      
+
+  
+
+
+
 {% endblock %}
