@@ -16,7 +16,12 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 SECRET_KEY = os.environ.get('SECRET_KEY') 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+if os.environ.get('TARGET_ENV') == 'dev':
+    DEBUG = True
+else:
+    DEBUG = False 
+    SECURE_SSL_REDIRECT = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
