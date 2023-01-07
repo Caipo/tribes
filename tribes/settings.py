@@ -20,8 +20,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
 else:
-    DEBUG = False 
-    SECURE_SSL_REDIRECT = True
+    DEBUG = True
+#    SECURE_SSL_REDIRECT = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
