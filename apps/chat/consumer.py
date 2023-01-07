@@ -5,7 +5,6 @@ import re
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from .models import Message
-from .models import ConnectedUsers 
 
 clients = list()
 
