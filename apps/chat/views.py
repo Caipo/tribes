@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 from django.template import loader
 from chat.models import Message
-from chat.models import ConnectedUsers 
 from chat.consumer import get_clients
 
 def room_name(request):
