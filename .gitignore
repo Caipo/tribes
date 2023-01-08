@@ -5,6 +5,7 @@
 **.png
 **.swp
 **.pem
+certs/*
 __pycache__/*
 
 
