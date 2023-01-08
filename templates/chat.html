@@ -36,8 +36,9 @@
   <script>
     const roomName = JSON.parse(document.getElementById('roomname').textContent);
     const socketList = document.getElementById('user-list');
-    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/' + roomName + '/');
+    //const chatSocket = new WebSocket('wss://' + window.location.host + '/ws/' + roomName + '/');
 
+    const chatSocket = new WebSocket('wss://' + window.location.host + '/ws/' + roomName + '/' );
 
     chatSocket.onmessage = function(e){
       const data = JSON.parse(e.data);

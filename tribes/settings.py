@@ -21,7 +21,7 @@ if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
 else:
     DEBUG = True
-#    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = True
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -132,6 +132,9 @@ LOGOUT_REDIRECT_URL = "/accounts/login"
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ((os.path.join(BASE_DIR, 'static')), )
+
+SETTINGS_MODULE='mysite.mysite'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

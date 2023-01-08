@@ -1,7 +1,10 @@
-**.env
-**.DS_Store
-**.idea
-**.jpg
-**.png
-**.swp
-__pycache__/
+*.env
+*.DS_Store
+*.idea
+*.jpg
+*.png
+*.swp
+*.pem
+__pycache__/*
+
+
