@@ -14,10 +14,8 @@ class Consumer(WebsocketConsumer):
         self.user = self.scope['user']
         self.room_group_name = 'chat_%s' % self.room_name
         clients.append(self)
-        #clients = sorted(clients, key=lambda x: x.user.username)
-        
-        #self.new_user = ConnectedUsers(user=self.user, tribe = self.user.tribe)
-        #self.new_user.save()
+       
+        print('got connection')
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -40,7 +38,7 @@ class Consumer(WebsocketConsumer):
 
     def disconnect(self, close_code):
         clients.remove(self)
-
+        print('droping connection')
         # Leave room group
         async_to_sync(self.channel_layer.group_discard)(
             self.room_group_name,

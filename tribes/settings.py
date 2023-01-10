@@ -21,7 +21,7 @@ if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
 else:
     DEBUG = True
-    SECURE_SSL_REDIRECT = True
+    SECURE_SSL_REDIRECT = False 
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -30,7 +30,7 @@ STATICFILES_DIRS = [
 
 ALLOWED_HOSTS = ['*']
 
-
+CSRF_TRUSTED_ORIGINS = ['https://www.tribesocial.app']
 # Application definition
 INSTALLED_APPS = [
     'daphne',
@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
