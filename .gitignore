@@ -4,4 +4,8 @@
 **.jpg
 **.png
 **.swp
-__pycache__/
+**.pem
+certs/*
+__pycache__/*
+
+
