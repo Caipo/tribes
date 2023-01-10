@@ -1,26 +1,27 @@
-# Tribes social
+# React + Django + PostgreSQL + Docker Starter Kit
 
-## About 
-Its a social media In the early stages, not really for the public but Ill keep it open
+## Development Setup (Docker)
 
+Requirements:
 
-## Things I have that you might need
+- Docker
+- Docker Compose
+- NodeJS and NPM
+
+```bash
+$ cp .env .env.dev # <- Update values as needed, but should be good as is
+$ npm install --prefix ./web/frontend/
+$ docker-compose up -d --build
+$ docker-compose exec web npm start --prefix ./frontend/
+Compiled successfully!
+
+You can now view frontend in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://172.19.0.3:3000
+
+Note that the development build is not optimized.
+To create a production build, use yarn build.
 ```
-Django==4.1.4
-channels==4.0.0
-daphne==4.0.0
-channels-redis==4.0.0
-python-dotenv
-psycopg2
-docker
-```
 
-## Start up
-
-```
-systemctl start docker
-docker run -p 6379:6379 -d redis:5
-python3 manage.py runserver
-```
-
-That is all
+Hot reload should be working upon saving your JavaScript files.
