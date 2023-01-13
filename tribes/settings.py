@@ -15,7 +15,10 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY') 
 
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
+CSRF_TRUSTED_ORIGINS = ['https://www.tribesocial.app', 'https://tribesocial.app', 'http://127.0.0.1', 'https://127.0.0.1']
 
 if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
