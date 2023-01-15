@@ -1,5 +1,6 @@
 <!-- templates/registration/login.html -->
-<html>
+{% extends 'base.html' %}
+{% block body %}
 <form method="post">
   {% csrf_token %}
   <h3>Username:
@@ -13,4 +14,4 @@
 <button type="submit">Log In</button>
 
 </form>
-</html>
+{% endblock %}

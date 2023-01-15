@@ -23,7 +23,7 @@ CSRF_TRUSTED_ORIGINS = ['https://www.tribesocial.app', 'https://tribesocial.app'
 if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
 else:
-    DEBUG = True
+    DEBUG = False 
 #    SECURE_SSL_REDIRECT = True
 
 STATICFILES_DIRS = [
@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
