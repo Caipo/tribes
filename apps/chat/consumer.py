@@ -10,14 +10,10 @@ clients = list()
 
 class Consumer(WebsocketConsumer):
     def connect(self):
+        clients.append(self)
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.user = self.scope['user']
         self.room_group_name = 'chat_%s' % self.room_name
-        clients.append(self)
-        #clients = sorted(clients, key=lambda x: x.user.username)
-        
-        #self.new_user = ConnectedUsers(user=self.user, tribe = self.user.tribe)
-        #self.new_user.save()
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -25,16 +21,14 @@ class Consumer(WebsocketConsumer):
             self.channel_name,
         )
 
+
+        # Keeps track of online users
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'user_list',
-                'message' : 'asdf'
             }
         )
-
-
-
 
         self.accept()
 
@@ -50,7 +44,6 @@ class Consumer(WebsocketConsumer):
             self.room_group_name,
             {
                 'type': 'user_list',
-                'message' : 'asdf'
             }
         )
 
@@ -110,4 +103,4 @@ def filter_message(message):
     return bleach.clean(message, tags=allowed_tags, attributes=allowed_attributes)
 
 def get_clients():
-    return [i.user.username for i in clients]
+    return [ {'username' : i.user.username, 'profile_picture' : i.user.profile_picture } for i in sorted(set(clients), key = lambda x: x.user.username )]

@@ -48,14 +48,16 @@
   <ul id="user-list">
   {% for i in user_list %}
 
-        <div class="content">
-                <div class="author"><b>{{i.username}}</b></div>
-          </div>
+        <div class="user-item">
 
         <div class="avatar">
         <img class='avatar' src="{% static ''%}{{i.profile_picture}}" alt="Avatar">
         </div>
-
+          
+        <div class='content'>
+         <div class="author"><b>{{i.username}}</b></div>
+         </div>
+        </div>
   {% endfor %}
   </ul>
   </div>      

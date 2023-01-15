@@ -9,7 +9,7 @@ def room_name(request):
                 (not request.user.is_anonymous and request.user.tribe == request.path_info.split(r'/')[-3])
                      or request.user.is_superuser):
             name = request.path_info.split(r'/')[-3]
-            messages = Message.objects.filter(tribe = request.user.tribe)
+            messages = reversed(Message.objects.filter(tribe = request.user.tribe).order_by('timestamp'))
 
             print(get_clients()) 
             return render(request,
