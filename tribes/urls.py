@@ -6,6 +6,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/', include('accounts.urls')),
     path('u/', include('users.urls')),
+    path('api/', include('api.urls')),
     path('t/', include('groups.urls')),
     re_path(r't/[a-z0-9_-]{3,15}/chat/', include('chat.urls')),
     path('', include('home.urls'))

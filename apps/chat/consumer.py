@@ -17,8 +17,8 @@ class Consumer(WebsocketConsumer):
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name,
+           self.room_group_name,
+        self.channel_name,
         )
 
 
@@ -29,7 +29,7 @@ class Consumer(WebsocketConsumer):
                 'type': 'user_list',
             }
         )
-
+        print('a')
         self.accept()
 
     def disconnect(self, close_code):
@@ -52,27 +52,31 @@ class Consumer(WebsocketConsumer):
 
     # Receive message from WebSocket
     def receive(self, text_data):
+
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
-        chat_message = Message(sender=self.scope['user'], 
-                                   profile_pic = self.scope['user'].profile_picture.split('/')[-1],
-                                   tribe = self.scope['user'].tribe,
-                                   message=message)
-        chat_message.save()
+
+        
+        #chat_message = Message(sender=self.scope['user'], 
+        #                           profile_pic = self.scope['user'].profile_picture.split('/')[-1],
+        #                           tribe = self.scope['user'].tribe,
+        #                           message=message)
+        #chat_message.save()
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
             self.room_group_name,
             {
                 'type': 'chat_message',
                 'message': message,
-                'author': self.scope['user'].username,
-                'picture' : self.scope['user'].profile_picture,
+                #'author': self.scope['user'].username,
+                #'picture' : self.scope['user'].profile_picture,
                 'time' :  str(datetime.datetime.now())
             }
         )
 
     
     def user_list(self, event):
+        print('b')
         self.send(text_data=json.dumps({
             'type' : 'user_list',
             'clients' : get_clients(),
@@ -80,16 +84,17 @@ class Consumer(WebsocketConsumer):
 
     # Receive message from room group
     def chat_message(self, event):
+        print('c')
         message = event['message']
-        author = event['author']
-        picture = event['picture']
+        #author = event['author']
+        #picture = event['picture']
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
             'type' : 'chat_message',
             'message': filter_message(message),
-            'author' : author,
-            'picture' : picture.split(r'/')[-1] 
+         #   'author' : author,
+         #   'picture' : picture.split(r'/')[-1] 
         }))
 
 def filter_message(message):

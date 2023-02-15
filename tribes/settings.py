@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-CSRF_TRUSTED_ORIGINS = ['https://www.tribesocial.app', 'https://tribesocial.app', 'http://127.0.0.1', 'https://127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://www.tribesocial.app', 'https://tribesocial.app', 'http://localhost' ,'http://127.0.0.1', 'https://127.0.0.1','http://127.0.0.1']
 
 if os.environ.get('TARGET_ENV') == 'dev':
     DEBUG = True
@@ -33,12 +33,38 @@ STATICFILES_DIRS = [
 
 ALLOWED_HOSTS = ['*']
 
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+)
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 # Application definition
 INSTALLED_APPS = [
     'daphne',
     'chat.apps.ChatConfig',
     'users.apps.UsersConfig',
+    'api.apps.ApiConfig',
     'groups.apps.GroupsConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',
@@ -47,7 +73,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts',
+    'corsheaders',
+    'rest_framework',
+    'accounts',    
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +87,19 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+REST_FRAMEWORK = {
+   'DEFAULT_PERMISSION_CLASSES': [
+       'rest_framework.permissions.IsAuthenticated',
+   ],
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.SessionAuthentication',
+       'rest_framework.authentication.TokenAuthentication',
+   )
+}
 
 ROOT_URLCONF = 'tribes.urls'
 

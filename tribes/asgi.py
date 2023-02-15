@@ -19,4 +19,6 @@ application = ProtocolTypeRouter(
             AuthMiddlewareStack(URLRouter(chat.routing.websocket_urlpatterns))
         ),
     }
+
+
 )
