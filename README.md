@@ -1,5 +1,8 @@
 # Tribes social
 
+# Warrning This repository is depricated please visit my tribes backend/ frontend repository for an upto date version
+
+
 ## About 
 Its a social media In the early stages, not really for the public but Ill keep it open
 
